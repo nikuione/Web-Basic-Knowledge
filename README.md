@@ -1,10 +1,12 @@
-都是知识点
 
 都是知识点
 
-1. dom树节点和渲染树节点一一对应吗，有什么是dom树会有，渲染树不会有的节点 不是，渲染树不包含head和隐藏的元素
-2. CSS会阻塞dom解析吗？ 不会，CSS解析可以与DOM解析同进行
-3. requestIdleCallback是干什么用的 在浏览器的空闲时段内调用的函数排队。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。
+1. dom树节点和渲染树节点一一对应吗，有什么是dom树会有，渲染树不会有的节点 
+  不是，渲染树不包含head和隐藏的元素
+2. CSS会阻塞dom解析吗？ 
+  不会，CSS解析可以与DOM解析同进行
+3. requestIdleCallback是干什么用的 
+  在浏览器的空闲时段内调用的函数排队。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。
 4. 浏览器的渲染原理、渲染过程
 * 字节 → 字符 → 令牌 → 节点 → 对象模型。
 * HTML 标记转换成文档对象模型 (DOM)；CSS 标记转换成 CSS 对象模型 (CSSOM)。
@@ -12,33 +14,34 @@
 * DOM和CSSOM都构建好之后，浏览器才能建成渲染树，然后开始渲染
 * js会影响DOM和CSSOM，async 不会
 5.关键渲染路径详述
-关键渲染路径是浏览器从收到 HTML、CSS 和 JavaScript 字节到对其进行必需的处理，从而将它们转变成渲染的像素这一过程中的一些中间步骤。
+  关键渲染路径是浏览器从收到 HTML、CSS 和 JavaScript 字节到对其进行必需的处理，从而将它们转变成渲染的像素这一过程中的一些中间步骤。
 6.避免回流的方式
-合并多次dom操作；避免重复获取元素宽高等属性；不要一条条地改变样式，而要通过改变class；使用transform来做形变和位移
+  合并多次dom操作；避免重复获取元素宽高等属性；不要一条条地改变样式，而要通过改变class；使用transform来做形变和位移
 7.跨域的方式
-。。。
+  。。。
 8.前端的网络安全如何防御（xss，csrf）
-xss： 将 & < > " ' / 转义为实体字符；html 属性也需要转义；将参数值进行 encodeURIComponent 编码
-csrf：跨站请求伪造： 验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。
+  xss： 将 & < > " ' / 转义为实体字符；html 属性也需要转义；将参数值进行 encodeURIComponent 编码
+  csrf：跨站请求伪造： 验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。
 9.cookies的保护方式
-http-only: 只允许http或https请求读取cookie、JS代码是无法读取cookie的(document.cookie会显示http-only的cookie项被自动过滤掉)。发送请求时自动发送cookie.
-secure-only: 只允许https请求读取，发送请求时自动发送cookie。
-host-only: 只允许主机域名与domain设置完成一致的网站才能访问该cookie。
-
+  http-only: 只允许http或https请求读取cookie、JS代码是无法读取cookie的(document.cookie会显示http-only的cookie项被自动过滤掉)。发送请求时自动发送cookie.
+  secure: 仅在https、ssl等安全协议下使
+  SameSite: 用来限制第三方cookie的属性，避免风险，主要包括三个值strict（最为严格，完全禁止第三方cookie，跨站点时，任何情况下都不会发送cookie。换言之，只有当前网页的URL与请求目标一致，才会带上cookie）、Lax（稍稍放宽，大多数情况也是不发送第三方cookie）、none（显式关闭SameSite属性，必须同时设置Secure属性（cookie只能通过HTTPS协议发送），否则无效），目前Chrome 80已经将该属性默认设置为Lax规则
 10.浏览器的缓存机制
-强缓存，协商缓存
+  强缓存，协商缓存
 11.react的虚拟dom和diff描述
-虚拟dom：描述真实dom的js对象
-diff：状态改变时将新的虚拟dom树和改变前的dom树做比较，找出真正改变的内容进行页面渲染
+  虚拟dom：描述真实dom的js对象
+  diff：状态改变时将新的虚拟dom树和改变前的dom树做比较，找出真正改变的内容进行页面渲染
 12.react渲染优化（class，hook）
-class: shouldComponentUpdate/PureComponent
-针对函数式组件发布的Memo
-hook: useCallback和useMemo
-hook好处： 将多个生命周期合并，避免代码重复；useEffect可以将消除副作用方法写到第二个参数里，不需要拆分多个生命周期
+  class: shouldComponentUpdate/PureComponent
+  针对函数式组件发布的Memo
+  hook: useCallback和useMemo
+  hook好处： 将多个生命周期合并，避免代码重复；useEffect可以将消除副作用方法写到第二个参数里，不需要拆分多个生命周期
 13.react的context的使用场景
-
+  需要多个组件工作的属性。Context 提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递 props。
 14.node有什么情况会导致内存溢出
+  
 15.node的内存分配
+
 16.event loop（浏览器和node）
 node：
 Timers（计时器阶段）：从图可见，初次进入事件循环，会从计时器阶段开始。此阶段会判断是否存在过期的计时器回调（包含 setTimeout 和 setInterval），如果存在则会执行所有过期的计时器回调，执行完毕后，如果回调中触发了相应的微任务，会接着执行所有微任务，执行完微任务后再进入 Pending callbacks 阶段。
