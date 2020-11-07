@@ -6,7 +6,7 @@
 2. CSS会阻塞dom解析吗？ 
   不会，CSS解析可以与DOM解析同进行
 3. requestIdleCallback是干什么用的 
-  在浏览器的空闲时段内调用的函数排队。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。
+  在浏览器的空闲时段内调用的函数队列。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。
 4. 浏览器的渲染原理、渲染过程
 * HTML解码、预解析、符号化、构建dom树
 * CSS 标记转换成 CSS 对象模型 (CSSOM) 生成css规则表，然后是规则匹配
@@ -31,7 +31,7 @@
   csrf：跨站请求伪造： 验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。   
 9.cookies的保护方式   
   http-only: 只允许http或https请求读取cookie、JS代码是无法读取cookie的(document.cookie会显示http-only的cookie项被自动过滤掉)。发送请求时自动发送cookie.  
-  secure: 仅在https、ssl等安全协议下使  
+  secure: 仅在https、ssl等安全协议下使用  
   SameSite: 用来限制第三方cookie的属性，避免风险，主要包括三个值strict（最为严格，完全禁止第三方cookie，跨站点时，任何情况下都不会发送cookie。换言之，只有当前网页的URL与请求目标一致，才会带上cookie）、Lax（稍稍放宽，大多数情况也是不发送第三方cookie）、none（显式关闭SameSite属性，必须同时设置Secure属性（cookie只能通过HTTPS协议发送），否则无效），目前Chrome 80已经将该属性默认设置为Lax规则  
 10.浏览器的缓存机制  
   强缓存，协商缓存  
@@ -92,16 +92,24 @@ import() 返回promise
 22.webpack的分包策略
 
 jsonp的原理
-csrf防御手段
-cookie的samesite属性作用
 js对象循环引用会导致什么问题
 react如何阻止原生默认事件
 react的fiber节点树是什么数据结构，为什么要用这样的数据结构
+    链表结构；如果 React 要同步遍历整个组件树并为每个组件执行任务，它可能会运行超过 16 毫秒。这将导致帧丢失，导致不顺畅的视觉效果。使用堆栈结构的递归遍历不能暂停和拆分工作单元。使用链接结构可以暂停可以阻止堆栈不断增加。。   
 react 异步渲染原理，优先级如何划分
+  同步任务，优先级最高
+  当前调度正执行的任务
+  动画
+  高优先级
+  低优先级
+  当前屏幕外的更新，优先级最低
 react hook有自己做一些自定义的hook吗
+    可以，使用use的方法
 react key的原理
+    提高在数组前插入元素效率
 react如何实现函数式调用组件，toast.show()
-react新增了什么生命周和删除了什么生命周期，为什么要删除
+react新增了什么生命周和删除了什么生命周期，为什么要删除   
+    由于 reconciliation 的阶段会被打断，可能会导致 commit 前的这些生命周期函数多次执行。react 官方目前已经把 componentWillMount、componentWillReceiveProps 和 componetWillUpdate 标记为 unsafe，并使用新的生命周期函数 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 进行替换。
 
 
 node对于option请求如何处理
@@ -149,21 +157,34 @@ ES6常用的api有哪些
 Base64图片有什么问题
 node后端知识
 
-Http强缓存和协商缓存用的是什么字段，整体流程是怎样
 Https原理
 Https第一次请求会携带什么
 请求携带了浏览器支持的加密算法和哈希算法。
 Ca证书的内容是什么
+
+http1.1新特性：   
+    缓存处理，HTTP1.1引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。  
+    HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206，支持断点续传。  
+    错误通知的管理，在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。   
+    HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。  
+    HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive    
+    
 Https2.0的特性
-Csrf攻击原理和防御方式
+    新的二进制格式  
+    多路复用  
+    server push  
+    head压缩  
+    
 二进制分帧的具体是什么
+
 Keep alive和多路复用的区别
-Option请求的作用
+    串行和并行   
+    
 Node gc方式
-1. 新生代和老生代的区别
-  1）存储大小不同
-  2）垃圾回收算法不同；切尼算法；标记回收和标记整理
-  3）存储对象存活的生命周期长度不同
+    新生代和老生代的区别
+      1）存储大小不同
+      2）垃圾回收算法不同；切尼算法；标记回收和标记整理
+      3）存储对象存活的生命周期长度不同
 新生代内存地址移动到老生代内存地址的过程
 开放问题
 
