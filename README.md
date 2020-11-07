@@ -96,7 +96,10 @@ import() 返回promise
 
 jsonp的原理  
 js对象循环引用会导致什么问题  
+  
 react如何阻止原生默认事件  
+  阻止合成事件间的冒泡，用e.stopPropagation();  
+  阻止原生事件与最外层document上的事件间的冒泡 e.nativeEvent.stopImmediatePropagation();  
   
 react的fiber节点树是什么数据结构，为什么要用这样的数据结构  
     链表结构；如果 React 要同步遍历整个组件树并为每个组件执行任务，它可能会运行超过 16 毫秒。这将导致帧丢失，导致不顺畅的视觉效果。使用堆栈结构的递归遍历不能暂停和拆分工作单元。使用链接结构可以暂停可以阻止堆栈不断增加。。   
