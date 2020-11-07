@@ -20,9 +20,9 @@
       回流和重绘
 * js会影响DOM和CSSOM，async 不会
 
-5.关键渲染路径详述
+5.关键渲染路径详述 
   关键渲染路径是浏览器从收到 HTML、CSS 和 JavaScript 字节到对其进行必需的处理，从而将它们转变成渲染的像素这一过程中的一些中间步骤。
-6.避免回流的方式
+6.避免回流的方式 
   合并多次dom操作；避免重复获取元素宽高等属性；不要一条条地改变样式，而要通过改变class；使用transform来做形变和位移；display:none 会触发回流，而 visibility:hidden 只会触发重绘。
 7.跨域的方式
   。。。
@@ -80,8 +80,8 @@ https://www.cnblogs.com/jin-zhe/p/11586327.html
 * gzip 解压
 * html 渲染过程
 20.js异步方式
-promise.resolve是干嘛的
-promise.then如何实现链式调用
+21.promise.resolve是干嘛的
+22.promise.then如何实现链式调用
 promise.then不返还一个promise还能用then吗
 promise.finally的作用，如何自己实现finally
 promise原理
