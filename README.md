@@ -8,24 +8,27 @@
 3. requestIdleCallback是干什么用的 
   在浏览器的空闲时段内调用的函数队列。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。
 4. 浏览器的渲染原理、渲染过程
-* HTML解码、预解析、符号化、构建dom树
-* CSS 标记转换成 CSS 对象模型 (CSSOM) 生成css规则表，然后是规则匹配
-* DOM 和 CSSOM 是独立的数据结构。
-* DOM和CSSOM都构建好之后，浏览器才能建成渲染树： 
-　　　　通过计算让任何尺寸值都减少到三个可能之一：auto、百分比、px，比如把rem转化为px。
-　　   级联：浏览器需要一种方法来确定哪些样式才真正需要应用到对应元素，所以它使用一个叫做specificity的公式，这个公式会通过，然后得出一个权重值，取最高的那个。
-          标签名、class、id、是否内联样式、!important
-      布局与绘制
-      合并渲染层
-      回流和重绘
-* js会影响DOM和CSSOM，async 不会
-
+    * HTML解码、预解析、符号化、构建dom树
+    * CSS 标记转换成 CSS 对象模型 (CSSOM) 生成css规则表，然后是规则匹配
+    * DOM 和 CSSOM 是独立的数据结构。
+    * DOM和CSSOM都构建好之后，浏览器才能建成渲染树： 
+        通过计算让任何尺寸值都减少到三个可能之一：auto、百分比、px，比如把rem转化为px。
+         级联：浏览器需要一种方法来确定哪些样式才真正需要应用到对应元素，所以它使用一个叫做specificity的公式，这个公式会通过，然后得出一个权重值，取最高的那个。
+              标签名、class、id、是否内联样式、!important
+          布局与绘制
+          合并渲染层
+          回流和重绘
+    * js会影响DOM和CSSOM，async 不会
+  
 5.关键渲染路径详述  
   关键渲染路径是浏览器从收到 HTML、CSS 和 JavaScript 字节到对其进行必需的处理，从而将它们转变成渲染的像素这一过程中的一些中间步骤.  
+  
 6.避免回流的方式  
-  合并多次dom操作；避免重复获取元素宽高等属性；不要一条条地改变样式，而要通过改变class；使用transform来做形变和位移；display:none 会触发回流，而 visibility:hidden 只会触发重绘。  
+  合并多次dom操作；避免重复获取元素宽高等属性；不要一条条地改变样式，而要通过改变class；使用transform来做形变和位移；display:none 会触发回流，而 visibility:hidden 只会触发重绘。
+    
 7.跨域的方式  
-  。。。  
+  。。。
+    
 8.前端的网络安全如何防御（xss，csrf）   
   xss： 将 & < > " ' / 转义为实体字符；html 属性也需要转义；将参数值进行 encodeURIComponent 编码   
   csrf：跨站请求伪造： 验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。   
@@ -83,35 +86,38 @@ https://www.cnblogs.com/jin-zhe/p/11586327.html
 20.js异步方式  
 21.promise.resolve是干嘛的  
 22.promise.then如何实现链式调用  
-promise.then不返还一个promise还能用then吗
-promise.finally的作用，如何自己实现finally
-promise原理
-21.webpack的异步加载如何实现
-require.ensure 引用时webpack会创建script标签进行加载 
-import() 返回promise
-22.webpack的分包策略
+promise.then不返还一个promise还能用then吗  
+promise.finally的作用，如何自己实现finally  
+promise原理  
+21.webpack的异步加载如何实现  
+require.ensure 引用时webpack会创建script标签进行加载  
+import() 返回promise  
+22.webpack的分包策略  
 
-jsonp的原理
-js对象循环引用会导致什么问题
-react如何阻止原生默认事件
-react的fiber节点树是什么数据结构，为什么要用这样的数据结构
+jsonp的原理  
+js对象循环引用会导致什么问题  
+react如何阻止原生默认事件  
+  
+react的fiber节点树是什么数据结构，为什么要用这样的数据结构  
     链表结构；如果 React 要同步遍历整个组件树并为每个组件执行任务，它可能会运行超过 16 毫秒。这将导致帧丢失，导致不顺畅的视觉效果。使用堆栈结构的递归遍历不能暂停和拆分工作单元。使用链接结构可以暂停可以阻止堆栈不断增加。。   
-react 异步渲染原理，优先级如何划分
-  同步任务，优先级最高
-  当前调度正执行的任务
-  动画
-  高优先级
-  低优先级
-  当前屏幕外的更新，优先级最低
-react hook有自己做一些自定义的hook吗
-    可以，使用use的方法
-react key的原理
-    提高在数组前插入元素效率
-react如何实现函数式调用组件，toast.show()
-react新增了什么生命周和删除了什么生命周期，为什么要删除   
-    由于 reconciliation 的阶段会被打断，可能会导致 commit 前的这些生命周期函数多次执行。react 官方目前已经把 componentWillMount、componentWillReceiveProps 和 componetWillUpdate 标记为 unsafe，并使用新的生命周期函数 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 进行替换。
+    
+react 异步渲染原理，优先级如何划分  
+  同步任务，优先级最高  
+  当前调度正执行的任务  
+  动画  
+  高优先级  
+  低优先级  
+  当前屏幕外的更新，优先级最低  
+    
+react hook有自己做一些自定义的hook吗  
+    可以，使用use的方法  
+react key的原理  
+    提高在数组前插入元素效率  
+react如何实现函数式调用组件，toast.show()  
+react新增了什么生命周和删除了什么生命周期，为什么要删除     
+    由于 reconciliation 的阶段会被打断，可能会导致 commit 前的这些生命周期函数多次执行。react 官方目前已经把 componentWillMount、componentWillReceiveProps 和 componetWillUpdate 标记为 unsafe，并使用新的生命周期函数 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 进行替换。  
 
-
+  
 node对于option请求如何处理
 node如何处理cors跨域
 ES modules和commonjs的区别
