@@ -222,19 +222,19 @@ node做前端服务器时：http＋proxy
   ＊ oBox.addEventListener("click",fn(),false);
   ＊ IE： oBox.attachEvent("click",fn());
 50. 事件触发的流程，捕获和冒泡
-51. 捕获阶段能终止吗
+51. 捕获阶段能终止吗  
   能，option为true ＋ e.stopPropagation()
-52. 终止冒泡阶段有哪些
+52. 终止冒泡阶段有哪些  
   e.stopPropagation()
   IE: e.cancelBubble = true
 
 53. 如果实现one绑定事件
 54. 事件委托的原理
-55. event.target和event.currtager的区别
+55. event.target和event.currtager的区别  
   event.target指向引起触发事件的元素，而event.currentTarget则是事件绑定的元素
 56. 浏览器显示一个图片有什么方式
 57. 如何获取url中的?后的参数
-58. 浏览器的内存回收机制 标记清除还是引用计数？
+58. 浏览器的内存回收机制 标记清除还是引用计数？  
   标记清除；引用计数;因为存在循环引用的情况会导致内存无法释放，需要手动值为 null，因此大多数的浏览器已经放弃这种回收方式。
 59. 什么是简单请求什么复杂请求
   见36
@@ -242,7 +242,7 @@ node做前端服务器时：http＋proxy
 61. 数组断引用的方式有什么
 62. Base64图片有什么问题
 
-63. Https第一次请求会携带什么
+63. Https第一次请求会携带什么  
 请求携带了浏览器支持的加密算法和哈希算法。
 64. Ca证书的内容是什么
 
@@ -264,7 +264,7 @@ node做前端服务器时：http＋proxy
 68. Keep alive和多路复用的区别
     串行和并行   
     
-69. Node gc方式
+69. Node gc方式  
     新生代和老生代的区别
       1）存储大小不同
       2）垃圾回收算法不同；切尼算法；标记回收和标记整理
