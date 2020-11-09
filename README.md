@@ -38,7 +38,7 @@
     postMessage
     window.name(2M) + iframe
 8.  前端的网络安全如何防御（xss，csrf）   
-  xss： 将 & < > " ' / 转义为实体字符；html 属性也需要转义；将参数值进行 encodeURIComponent 编码   
+  xss： 将 & < > " ' / 转义为实体字符；html 属性也需要转义；将参数值进行 decodeURIComponent 编码   
   csrf：跨站请求伪造： 验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。   
 9.  cookies的保护方式   
   http-only: 只允许http或https请求读取cookie、JS代码是无法读取cookie的(document.cookie会显示http-only的cookie项被自动过滤掉)。发送请求时自动发送cookie.  
@@ -90,20 +90,46 @@ https://www.cnblogs.com/jin-zhe/p/11586327.html
     * 是否有协商缓存  
     * gzip 解压  
     * html 渲染过程  
-20. js异步方式  
+20. js异步方式
+    callback  
+    事件监听：事件驱动型，运行流程会变得很不清晰
+    发布订阅
+    promise
+    generator
+    await
+    
+
 21. promise.resolve是干嘛的  
-22. promise.then如何实现链式调用  
-promise.then返回一个promise还能用then吗  
+    Promise.resolve(value);//返回value
+    Promise.resolve(promise);//返回promise的副本
+    Promise.resolve(theanable);//将一个类promise对象转换为promise
+22. promise.then如何实现链式调用？promise.then不返回一个promise，还能用then吗  
+    promise.then返回一个新的promise；不能
 23. promise.finally的作用，如何自己实现finally  
+    无论是resolve还是reject，都会走finally方法。
+    MyPromise.prototype.finally = function(fn) {
+        return this.then(value => {
+           fn();
+           return value;
+        }, reason => {
+            fn();
+            throw reason;
+        });
+    };
 24. promise原理  
+...
 25  .webpack的异步加载如何实现  
 require.ensure 引用时webpack会创建script标签进行加载  
 import() 返回promise  
 26. webpack的分包策略  
-
+    externals 配置外部库，并全局挂载引用变量
+    cacheGroups 配置分包规则 将满足条件的依赖提取到一个chunk
 27. jsonp的原理  
+    首先是利用script标签的src属性来实现跨域。  
+    通过将前端方法作为参数传递到服务器端，然后由服务器端注入参数之后再返回，实现服务器端向客户端通信。  
+    由于使用script标签的src属性，因此只支持get方法  
 28. js对象循环引用会导致什么问题  
-  垃圾无法回收，内存泄漏
+  垃圾无法回收，内存泄漏  
 29. react如何阻止原生默认事件  
   阻止合成事件间的冒泡，用e.stopPropagation();  
   阻止原生事件与最外层document上的事件间的冒泡 e.nativeEvent.stopImmediatePropagation();  
@@ -120,22 +146,23 @@ import() 返回promise
   当前屏幕外的更新，优先级最低  
     
 32. react hook有自己做一些自定义的hook吗  
-    可以，使用use的方法  
+    可以，自定义use开始的方法  
 33. react key的原理  
-    提高在数组前插入元素效率  
+    提高在数组前插入元素的渲染效率  
 34. react如何实现函数式调用组件，toast.show()  
 35. react新增了什么生命周和删除了什么生命周期，为什么要删除     
     由于 reconciliation 的阶段会被打断，可能会导致 commit 前的这些生命周期函数多次执行。react 官方目前已经把 componentWillMount、componentWillReceiveProps 和 componetWillUpdate 标记为 unsafe，并使用新的生命周期函数 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 进行替换。  
 
   
 36. node对于option请求如何处理
+
 37. node如何处理cors跨域
 40. ES modules和commonjs的区别
 41. tcp和udp区别
-1)  TCP提供面向连接的传输，通信前要先建立连接（三次握手机制）； UDP提供无连接的传输，通信前不需要建立连接。
-2） TCP提供可靠的传输（有序，无差错，不丢失，不重复）； UDP提供不可靠的传输。
-3） TCP面向字节流的传输，因此它能将信息分割成组，并在接收端将其重组； UDP是面向数据报的传输，没有分组开销。
-4） TCP提供拥塞控制和流量控制机制； UDP不提供拥塞控制和流量控制机制。
+    1)  TCP提供面向连接的传输，通信前要先建立连接（三次握手机制）； UDP提供无连接的传输，通信前不需要建立连接。
+    2） TCP提供可靠的传输（有序，无差错，不丢失，不重复）； UDP提供不可靠的传输。
+    3） TCP面向字节流的传输，因此它能将信息分割成组，并在接收端将其重组； UDP是面向数据报的传输，没有分组开销。
+    4） TCP提供拥塞控制和流量控制机制； UDP不提供拥塞控制和流量控制机制。
 42. tcp的三次握手和四次挥手
 43. https协议握手大概过程
 44. 对称加密和非对称加密的区别
@@ -144,12 +171,12 @@ import() 返回promise
 
 
 47. 如何埋点，为什么用1*1像素的gif图片做上报
-1）能够完成整个 HTTP 请求+响应（尽管不需要响应内容）
-2）触发 GET 请求之后不需要获取和处理数据、服务器也不需要发送数据
-3）跨域友好
-4）执行过程无阻塞
-5）相比 XMLHttpRequest 对象发送 GET 请求，性能上更好
-6）GIF的最低合法体积最小（最小的BMP文件需要74个字节，PNG需要67个字节，而合法的GIF，只需要43个字节
+    1）能够完成整个 HTTP 请求+响应（尽管不需要响应内容）
+    2）触发 GET 请求之后不需要获取和处理数据、服务器也不需要发送数据
+    3）跨域友好
+    4）执行过程无阻塞
+    5）相比 XMLHttpRequest 对象发送 GET 请求，性能上更好
+    6）GIF的最低合法体积最小（最小的BMP文件需要74个字节，PNG需要67个字节，而合法的GIF，只需要43个字节
 
 48. 如何定义首屏
 
