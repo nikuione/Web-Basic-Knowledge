@@ -31,12 +31,16 @@
   display:none 会触发回流，而 visibility:hidden 只会触发重绘。
     
 7.  跨域的方式  
-    document.domain + iframe
+    document.domain + iframe（只能解决子域名不同问题）
+    hash ＋ iframe
+    window.name(2M) + iframe
     jsonp
     webSocket
-    script
     postMessage
-    window.name(2M) + iframe
+    cors（前端设置是否带cookie xhr.withCredentials = true;）
+    nginx代理（读取cookie： proxy_cookie_domain）
+    node中间件代理（读取cookie： cookieDomainRewrite）
+    
 8.  前端的网络安全如何防御（xss，csrf）   
   xss： 将 & < > " ' / 转义为实体字符；html 属性也需要转义；将参数值进行 decodeURIComponent 编码   
   csrf：跨站请求伪造： 验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。   
@@ -154,16 +158,43 @@ import() 返回promise
     由于 reconciliation 的阶段会被打断，可能会导致 commit 前的这些生命周期函数多次执行。react 官方目前已经把 componentWillMount、componentWillReceiveProps 和 componetWillUpdate 标记为 unsafe，并使用新的生命周期函数 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 进行替换。  
 
   
-36. node对于option请求如何处理
-
+36. 什么是简单请求？node对于option请求如何处理？
+  Mozilla对于简单请求的要求是： 以下三项必须都成立：
+  只能是Get、Head、Post方法
+  除了浏览器自己在Http头上加的信息（如Connection、User-Agent），开发者只能加这几个：Accept、Accept-Language、Content-Type、。。。。
+  Content-Type只能取这几个值： application/x-www-form-urlencoded multipart/form-data text/plain
+  在设置跨域头时简单请求不需要发送OPTIONS嗅探请求，但只能按发送简单的GET、HEAD或POST请求，且不能自定义HTTP Headers。Preflighted 请求和认证请求，XHR会首先发送一个OPTIONS嗅探请求，然后XHR会根据OPTIONS请求返回的Access-Control-*等头信息判断是否有对指定站点的访问权限，并最终决定是否发送实际请求信息。
 37. node如何处理cors跨域
+node作为接口服务器时：在返回头中设置跨域的域名 access-controll-allow-origin
+node做前端服务器时：http＋proxy
+  app.use('/', proxy({
+      // 代理跨域目标接口
+      target: 'http://www.domain2.com:8080',
+      changeOrigin: true,
+
+      // 修改响应头信息，实现跨域并允许带cookie
+      onProxyRes: function(proxyRes, req, res) {
+          res.header('Access-Control-Allow-Origin', 'http://www.domain1.com');
+          res.header('Access-Control-Allow-Credentials', 'true');
+      },
+
+      // 修改响应信息中的cookie域名
+      cookieDomainRewrite: 'www.domain1.com'  // 可以为false，表示不修改
+}));
 40. ES modules和commonjs的区别
+  commonJs是被加载的时候运行，esModule是编译的时候运行
+  commonJs输出的是值的浅拷贝，esModule输出值的引用
+  commentJs具有缓存。在第一次被加载时，会完整运行整个文件并输出一个对象，拷贝（浅拷贝）在内存中。下次加载文件时，直接从内存中取值
+  ES6 模块加载 CommonJS 模块：module.exports 等同于 export default 可以用 import 引入
+  CommonJS 模块加载 ES6 模块：CommonJS 模块加载 ES6 模块，不能使用require命令，而要使用import()函数。
+  
 41. tcp和udp区别
     1)  TCP提供面向连接的传输，通信前要先建立连接（三次握手机制）； UDP提供无连接的传输，通信前不需要建立连接。
     2） TCP提供可靠的传输（有序，无差错，不丢失，不重复）； UDP提供不可靠的传输。
     3） TCP面向字节流的传输，因此它能将信息分割成组，并在接收端将其重组； UDP是面向数据报的传输，没有分组开销。
     4） TCP提供拥塞控制和流量控制机制； UDP不提供拥塞控制和流量控制机制。
 42. tcp的三次握手和四次挥手
+
 43. https协议握手大概过程
 44. 对称加密和非对称加密的区别
 45. 非对称加密，私钥和公钥的区别
@@ -180,17 +211,33 @@ import() 返回promise
 
 48. 如何定义首屏
 
-49. 绑定事件有多少种方式
+49. 绑定事件有多少种方式  
+  ＊ <button onclick="func()">Click</button>   //函数上下文是window
+<script type="text/javascript">
+  var func = () => {
+    alert('hello world')
+  };
+</script>
+  ＊ var oBox = document.getElementById("container");oBox.onclick = function() {} //兼容性较好
+  ＊ oBox.addEventListener("click",fn(),false);
+  ＊ IE： oBox.attachEvent("click",fn());
 50. 事件触发的流程，捕获和冒泡
 51. 捕获阶段能终止吗
+  能，option为true ＋ e.stopPropagation()
 52. 终止冒泡阶段有哪些
+  e.stopPropagation()
+  IE: e.cancelBubble = true
+
 53. 如果实现one绑定事件
 54. 事件委托的原理
 55. event.target和event.currtager的区别
+  event.target指向引起触发事件的元素，而event.currentTarget则是事件绑定的元素
 56. 浏览器显示一个图片有什么方式
 57. 如何获取url中的?后的参数
 58. 浏览器的内存回收机制 标记清除还是引用计数？
+  标记清除；引用计数;因为存在循环引用的情况会导致内存无法释放，需要手动值为 null，因此大多数的浏览器已经放弃这种回收方式。
 59. 什么是简单请求什么复杂请求
+  见36
 60. const和let有什么区别
 61. 数组断引用的方式有什么
 62. Base64图片有什么问题
