@@ -197,11 +197,10 @@ node做前端服务器时：http＋proxy
 
 43. https协议握手大概过程
 44. 对称加密和非对称加密的区别
-45. 非对称加密，私钥和公钥的区别  
+45. 非对称加密，私钥和公钥的区别
 46. https证书的作用  
 
-
-47. 如何埋点，为什么用1*1像素的gif图片做上报  
+47. 如何埋点，为什么用1*1像素的gif图片做上报
     1）能够完成整个 HTTP 请求+响应（尽管不需要响应内容）
     2）触发 GET 请求之后不需要获取和处理数据、服务器也不需要发送数据
     3）跨域友好
@@ -212,16 +211,16 @@ node做前端服务器时：http＋proxy
 48. 如何定义首屏
 
 49. 绑定事件有多少种方式  
-＊ <button onclick="func()">Click</button>   //函数上下文是window
-<script type="text/javascript">
+  * < button onclick="func()">Click</button>   //函数上下文是window
+  * <script type="text/javascript">
   var func = () => {
     alert('hello world')
   };
-</script>
-＊ var oBox = document.getElementById("container");oBox.onclick = function() {} //兼容性较好
-＊ oBox.addEventListener("click",fn(),false);
-＊ IE： oBox.attachEvent("click",fn());
-50. 事件触发的流程，捕获和冒泡  
+</script>  
+  * var oBox = document.getElementById("container");oBox.onclick = function() {} //兼容性较好  
+  * oBox.addEventListener("click",fn(),false);  
+  * IE： oBox.attachEvent("click",fn());  
+50. 事件触发的流程，捕获和冒泡
 51. 捕获阶段能终止吗  
   能，option为true ＋ e.stopPropagation()
 52. 终止冒泡阶段有哪些  
