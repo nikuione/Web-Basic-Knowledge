@@ -157,14 +157,21 @@ import() 返回promise
 35. react新增了什么生命周和删除了什么生命周期，为什么要删除     
     由于 reconciliation 的阶段会被打断，可能会导致 commit 前的这些生命周期函数多次执行。react 官方目前已经把 componentWillMount、componentWillReceiveProps 和 componetWillUpdate 标记为 unsafe，并使用新的生命周期函数 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 进行替换。  
 
+36. redux的好处：
+  保证数据的唯一性，数据变化可追溯  
+  代码风格要求严格，提高可维护性
+  服务器端创建的store会转发到客户端  
+  拆分小函数，便于测试
+ 
+  主要有三个核心方法，action，store，reducer
   
-36. 什么是简单请求？node对于option请求如何处理？
+37. 什么是简单请求？node对于option请求如何处理？
   Mozilla对于简单请求的要求是： 以下三项必须都成立：
   只能是Get、Head、Post方法
   除了浏览器自己在Http头上加的信息（如Connection、User-Agent），开发者只能加这几个：Accept、Accept-Language、Content-Type、。。。。
   Content-Type只能取这几个值： application/x-www-form-urlencoded multipart/form-data text/plain
   在设置跨域头时简单请求不需要发送OPTIONS嗅探请求，但只能按发送简单的GET、HEAD或POST请求，且不能自定义HTTP Headers。Preflighted 请求和认证请求，XHR会首先发送一个OPTIONS嗅探请求，然后XHR会根据OPTIONS请求返回的Access-Control-*等头信息判断是否有对指定站点的访问权限，并最终决定是否发送实际请求信息。
-37. node如何处理cors跨域
+38. node如何处理cors跨域
 node作为接口服务器时：在返回头中设置跨域的域名 access-controll-allow-origin
 node做前端服务器时：http＋proxy
   app.use('/', proxy({
@@ -235,9 +242,7 @@ node做前端服务器时：http＋proxy
 57. 如何获取url中的?后的参数
 58. 浏览器的内存回收机制 标记清除还是引用计数？  
   标记清除；引用计数;因为存在循环引用的情况会导致内存无法释放，需要手动值为 null，因此大多数的浏览器已经放弃这种回收方式。
-59. 什么是简单请求什么复杂请求
-  见36
-60. const和let有什么区别
+
 61. 数组断引用的方式有什么
 62. Base64图片有什么问题
 
