@@ -293,6 +293,11 @@ render采用的是第三方库Cheerio的渲染，渲染结果是普通的html结
 shallow和mount对组件的渲染结果不是html的dom树，而是react树，  
 这些只是渲染结果上的差别，更大的差别是shallow和mount的结果是个被封装的ReactWrapper，可以进行多种操作，譬如find()、parents()、children()等选择器进行元素查找；state()、props()进行数据查找，setState()、setprops()操作数据；simulate()模拟事件触发。  
 shallow只渲染当前组件，只能能对当前组件做断言；mount会渲染当前组件以及所有子组件，对所有子组件也可以做上述操作。一般交互测试都会关心到子组件，我使用的都是mount。但是mount耗时更长，内存啥的也都占用的更多，如果没必要操作和断言子组件，可以使用shallow。  
+77. 发布订阅模式实现，见dispatch.js
+78. 双向数据绑定：  
+   *  观察者模式
+   *  脏检测
+   *  数据劫持
 
 
 
