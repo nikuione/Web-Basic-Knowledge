@@ -293,58 +293,6 @@ render采用的是第三方库Cheerio的渲染，渲染结果是普通的html结
 shallow和mount对组件的渲染结果不是html的dom树，而是react树，  
 这些只是渲染结果上的差别，更大的差别是shallow和mount的结果是个被封装的ReactWrapper，可以进行多种操作，譬如find()、parents()、children()等选择器进行元素查找；state()、props()进行数据查找，setState()、setprops()操作数据；simulate()模拟事件触发。  
 shallow只渲染当前组件，只能能对当前组件做断言；mount会渲染当前组件以及所有子组件，对所有子组件也可以做上述操作。一般交互测试都会关心到子组件，我使用的都是mount。但是mount耗时更长，内存啥的也都占用的更多，如果没必要操作和断言子组件，可以使用shallow。  
-77. 发布订阅模式：
 
-class Event {
-  constructor () {}
-  // 首先定义一个事件容器，用来装事件数组（因为订阅者可以是多个）
-  handlers = {}
-
-  // 事件添加方法，参数有事件名和事件方法
-  addEventListener (type, handler) {
-    // 首先判断handlers内有没有type事件容器，没有则创建一个新数组容器
-    if (!(type in this.handlers)) {
-      this.handlers[type] = []
-    }
-    // 将事件存入
-    this.handlers[type].push(handler)
-  }
-
-  // 触发事件两个参数（事件名，参数）
-  dispatchEvent (type, ...params) {
-    // 若没有注册该事件则抛出错误
-    if (!(type in this.handlers)) {
-      return new Error('未注册该事件')
-    }
-    // 便利触发
-    this.handlers[type].forEach(handler => {
-      handler(...params)
-    })
-  }
-
-  // 事件移除参数（事件名，删除的事件，若无第二个参数则删除该事件的订阅和发布）
-  removeEventListener (type, handler) {
-      // 无效事件抛出
-      if (!(type in this.handlers)) {
-        return new Error('无效事件')
-      }
-      if (!handler) {
-        // 直接移除事件
-        delete this.handlers[type]
-      } else {
-        const idx = this.handlers[type].findIndex(ele => ele === handler)
-        // 抛出异常事件
-        if (idx === -1) {
-          return new Error('无该绑定事件')
-        }
-        // 移除事件
-        this.handlers[type].splice(idx, 1)
-        if (this.handlers[type].length === 0) {
-          delete this.handlers[type]
-        }
-      }
-    }
-}
-78. 观察者模式：
 
 
