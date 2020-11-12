@@ -248,7 +248,10 @@ node做前端服务器时：http＋proxy
 
 63. Https第一次请求会携带什么  
 请求携带了浏览器支持的加密算法和哈希算法。
-64. Ca证书的内容是什么
+64. https与http的区别
+  * http明文传输；https密文传输
+  * http传输大小不一样
+  * 端口不一样80和443
 
 65. http1.1新特性：   
     缓存处理，HTTP1.1引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。  
