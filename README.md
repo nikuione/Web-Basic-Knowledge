@@ -189,11 +189,11 @@ node做前端服务器时：http＋proxy
       cookieDomainRewrite: 'www.domain1.com'  // 可以为false，表示不修改
 }));
 40. ES modules和commonjs的区别
-  commonJs是被加载的时候运行，esModule是编译的时候运行
-  commonJs输出的是值的浅拷贝，esModule输出值的引用
-  commentJs具有缓存。在第一次被加载时，会完整运行整个文件并输出一个对象，拷贝（浅拷贝）在内存中。下次加载文件时，直接从内存中取值
-  ES6 模块加载 CommonJS 模块：module.exports 等同于 export default 可以用 import 引入
-  CommonJS 模块加载 ES6 模块：CommonJS 模块加载 ES6 模块，不能使用require命令，而要使用import()函数。
+  commonJs是被加载的时候运行，esModule是编译的时候运行  
+  commonJs输出的是值的浅拷贝，esModule输出值的引用  
+  commentJs具有缓存。在第一次被加载时，会完整运行整个文件并输出一个对象，拷贝（浅拷贝）在内存中。下次加载文件时，直接从内存中取值  
+  ES6 模块加载 CommonJS 模块：module.exports 等同于 export default 可以用 import 引入  
+  CommonJS 模块加载 ES6 模块：CommonJS 模块加载 ES6 模块，不能使用require命令，而要使用import()函数。  
   
 41. tcp和udp区别
     1)  TCP提供面向连接的传输，通信前要先建立连接（三次握手机制）； UDP提供无连接的传输，通信前不需要建立连接。
