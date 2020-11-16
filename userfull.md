@@ -48,14 +48,18 @@
 22.css实现正方形div水平垂直居中  
         vertical-align:middle  + 行内元素  
         父元素display:flex;而子元素align-self:center;  
-        子元素设置position属性，通过transform(translateY(-50%));top:50%。 
+        子元素设置position属性，通过transform:translateY(-50%);top:50%。 
         设置子元素的line-height值等于父元素的height，这种方法适用于子元素为单行文本的情况。  
 23.koa1的原理,继承  
+        application koa实列；listen，use方法等封装  
+        context：代理，__defineSetter__ 和 __defineGetter__ 来做获取request、response数据  
+        request、response： 基于 http.req  和http.res 封装一些方法  
         
-24.最后是一个写代码 处理有依赖的异步任务 加重试   
+24.最后是一个写代码 处理有依赖的异步任务 加重试    
 25. diff的原理   
 26. es6箭头函数   
 27. import和requre的区别   
+
 28. symbol   
 29. 函数实现正面模板   
 30. 正方形实现，三角形实现 31. CSS考了 伪类 32. 实现布局header,content,footer，上中下布局；当content 超出窗口可视区，不显示footer；当content 没超出可视区时，固定footer 在最下面 33. 算法:背包问题、闭包问题、函数柯里化 34. 宽是高的一半的垂直居中，里面有字体也要垂直居中类数组 35. promise async set time out先后次序 36. event类 on once灯方法 37.. ==的隐式转化 38.什么是闭包， 39.最长子序列 40.二叉树中序遍历 41.http握手原理 42.react 新版本的特性 43. 多空格字符串格式化为数组 44、bind函数运行结果 45、点击table的td显示td内容 46、数字千分位处理 47、固定日期与当前时间格式化处理 48、上中下三栏布局 49、实现一个子类实例可以继承父类的所有方法 50. Jsonp跨域，js原型继承 & 原型链，promise，二叉树搜寻算法，算法：前端做并发请求控制 
