@@ -306,3 +306,4 @@ shallow只渲染当前组件，只能能对当前组件做断言；mount会渲�
   优化：dns缓存及dns预热；node 流下发；使用gzip格式下发html；服务端的处理优化；拆分首屏css；js放到body最后请求；简化dom结构；
 
 
+
