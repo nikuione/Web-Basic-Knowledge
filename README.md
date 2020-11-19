@@ -303,7 +303,7 @@ shallow只渲染当前组件，只能能对当前组件做断言；mount会渲�
    *  数据劫持  
 79.白屏时间的定义及优化：
   白屏时间： performance.timing.domInteractive - performance.timing.responseStart  
-  优化：dns缓存及dns预热；node 流下发；使用gzip格式下发html；拆分首屏css；js放到body最后请求；简化dom结构；图片懒加载；使用prefetch加载关键样式
+  优化：dns预热；node 流下发；使用gzip格式下发html；拆分首屏css；js放到body最后请求，并使用async属性；简化dom结构；图片懒加载；使用prefetch加载关键样式
 
 
 
