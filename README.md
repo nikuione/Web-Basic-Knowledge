@@ -2,7 +2,7 @@
 
 都是知识点
 
-1. dom树节点和渲染树节点一一对应吗，有什么是dom树会有，渲染树不会有的节点 
+1. dom树节点和渲染树节点一一对应吗，有什么是dom树会有，渲染树不会有的节点  
   不是，渲染树不包含head和隐藏的元素
 2. CSS会阻塞dom解析吗？ 
   不会，CSS解析可以与DOM解析同进行
@@ -301,6 +301,7 @@ shallow只渲染当前组件，只能能对当前组件做断言；mount会渲�
    *  观察者模式
    *  脏检测
    *  数据劫持  
+      
 79.白屏时间的定义及优化：
   白屏时间： performance.timing.domInteractive - performance.timing.responseStart  
   优化：dns预热；node 流下发；使用gzip格式下发html；拆分首屏css；js放到body最后请求，并使用async属性；简化dom结构；图片懒加载；使用prefetch加载关键样式
