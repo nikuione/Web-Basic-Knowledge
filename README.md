@@ -336,5 +336,6 @@ shallow只渲染当前组件，只能能对当前组件做断言；mount会渲�
   白屏时间： performance.timing.domInteractive - performance.timing.responseStart  
   优化：dns预热；node 流下发；使用gzip格式下发html；拆分首屏css；js放到body最后请求，并使用async属性；简化dom结构；图片懒加载；使用prefetch加载关键样式
 
-
+80.js数据存储：
+堆（heap）用于复杂数据类型（引用类型）分配空间，例如数组对象、object对象；它是运行时动态分配内存的，因此存取速度较慢。栈（stack）中主要存放一些基本类型的变量和对象的引用，其优势是存取速度比堆要快，并且栈内的数据可以共享
 
