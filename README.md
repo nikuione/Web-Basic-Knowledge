@@ -98,7 +98,9 @@
   老生代 64位下 1.4GB 32位下 700MB  
   新生代 64位下 32MB 32位下 16MB  
 16. event loop（浏览器和node）  
-    * Timers（计时器阶段）：从图可见，初次进入事件循环，会从计时器阶段开始。此阶段会判断是否存在过期的计时器回调（包含 setTimeout 和 setInterval），如果存在则会执行所有过期的计时器回调，执行完毕后，如果回调中触发了相应的微任务，会接着执行所有微任务，执行完微任务后再进入 Pending callbacks 阶段。  
+![image](https://user-images.githubusercontent.com/20549704/176922827-f237b04e-097e-4780-a269-25d4ee90d56d.png)
+    * Timers（计时器阶段）：从图可见，初次进入事件循环，会从计时器阶段开始。此阶段会判断是否存在过期的计时器回调（包含 setTimeout 和 setInterval），如果存在则会执行所有过期的计时器回调，执行完毕后，如果回调中触发了相应的微
+    ，会接着执行所有微任务，执行完微任务后再进入 Pending callbacks 阶段。  
 
     * Pending callbacks：执行推迟到下一个循环迭代的I / O回调（系统调用相关的回调）。  
     * Idle/Prepare：仅供内部使用。（详略）  
