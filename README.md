@@ -50,6 +50,34 @@
   SameSite: 用来限制第三方cookie的属性，避免风险，主要包括三个值strict（最为严格，完全禁止第三方cookie，跨站点时，任何情况下都不会发送cookie。换言之，只有当前网页的URL与请求目标一致，才会带上cookie）、Lax（稍稍放宽，大多数情况也是不发送第三方cookie）、none（显式关闭SameSite属性，必须同时设置Secure属性（cookie只能通过HTTPS协议发送），否则无效），目前Chrome 80已经将该属性默认设置为Lax规则  
 10. 浏览器的缓存机制  
   强缓存，协商缓存  
+  控制强制缓存的字段分别是Expires和Cache-Control，其中Cache-Control优先级比Expires高。
+            public：所有内容都将被缓存（客户端和代理服务器都可缓存）
+        
+        
+            private：所有内容只有客户端可以缓存，Cache-Control的默认取值
+        
+        
+            no-cache：客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定
+        
+        
+            no-store：所有内容都不会被缓存，即不使用强制缓存，也不使用协商缓存
+        
+        
+            max-age=xxx (xxx is numeric)：缓存内容将在xxx秒后失效
+            
+            内存缓存(from memory cache)：内存缓存具有两个特点，分别是快速读取和时效性：
+        
+        
+            快速读取：内存缓存会将编译解析后的文件，直接存入该进程的内存中，占据该进程一定的内存资源，以方便下次运行使用时的快速读取。
+        
+        
+            时效性：一旦该进程关闭，则该进程的内存则会清空。
+        
+        
+            硬盘缓存(from disk cache)：硬盘缓存则是直接将缓存写入硬盘文件中，读取缓存需要对该缓存存放的硬盘文件进行I/O操作，然后重新解析该缓存内容，读取复杂，速度比内存缓存慢。
+
+控制协商缓存的字段分别有：Last-Modified / If-Modified-Since和Etag / If-None-Match，其中Etag / If-None-Match的优先级比Last-Modified / If-Modified-Since高。状态码304.
+
 11. react的虚拟dom和diff描述  
   虚拟dom：描述真实dom的js对象    
   diff：状态改变时将新的虚拟dom树和改变前的dom树做比较，找出真正改变的内容进行页面渲染  
