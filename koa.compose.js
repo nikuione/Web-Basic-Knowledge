@@ -1,5 +1,5 @@
 compose() {
-        return async ctx =&gt; {
+        return async ctx => {
             function createNext(middleware, oldNext) {
                 return async () =&gt; {
                     await middleware(ctx, oldNext);
